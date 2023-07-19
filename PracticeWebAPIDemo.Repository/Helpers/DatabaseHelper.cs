@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using CoreProfiler;
+using CoreProfiler.Data;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace PracticeWebAPIDemo.Repository.Helpers
@@ -14,7 +16,15 @@ namespace PracticeWebAPIDemo.Repository.Helpers
 
         public IDbConnection GetConnection()
         {
-            return new SqlConnection(_connectionString);
+            var Connection = new ProfiledDbConnection
+            (
+                new SqlConnection(this._connectionString),
+                () => ProfilingSession.Current == null ?
+                    null :
+                    new DbProfiler(ProfilingSession.Current.Profiler)
+            );
+
+            return Connection;
         }
     }
 }

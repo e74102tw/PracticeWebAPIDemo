@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CoreProfiler;
 using Microsoft.AspNetCore.Mvc;
 using PracticeWebAPIDemo.Infrastructure.ActionFilters;
 using PracticeWebAPIDemo.Infrastructure.Validators;
@@ -7,6 +8,7 @@ using PracticeWebAPIDemo.Models.OutputModels;
 using PracticeWebAPIDemo.Service.Dtos.Info;
 using PracticeWebAPIDemo.Service.Dtos.ResultModel;
 using PracticeWebAPIDemo.Service.Interface;
+using PracticeWebAPIDemo.WebApi.Infrastructure.ActionFilters;
 using PracticeWebAPIDemo.WebApi.Infrastructure.Models;
 
 namespace PracticeWebAPIDemo.Controllers
@@ -27,6 +29,7 @@ namespace PracticeWebAPIDemo.Controllers
         /// 查詢卡片列表
         /// </summary>
         /// <returns></returns>
+        [CoreProfiling]
         [HttpGet("GetList")]
         [Produces("application/json")]
         [CustomValidator(typeof(CardSearchParameterValidator))]
@@ -51,7 +54,8 @@ namespace PracticeWebAPIDemo.Controllers
         /// <remarks>我是附加說明</remarks>
         /// <param name="id">卡片編號</param>
         /// <returns></returns>
-        /// <response code="200">回傳對應的卡片</response>       
+        /// <response code="200">回傳對應的卡片</response>
+        [CoreProfiling]
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(typeof(SuccessResultOutputModel<CardOutputModel>), StatusCodes.Status200OK)]
@@ -84,6 +88,7 @@ namespace PracticeWebAPIDemo.Controllers
         /// </summary>
         /// <param name="parameter">卡片參數</param>
         /// <returns></returns>
+        [CoreProfiling]
         [HttpPost]
         public async Task<IActionResult> Insert([FromBody] CardParameter parameter)
         {
@@ -105,6 +110,7 @@ namespace PracticeWebAPIDemo.Controllers
         /// <param name="id">卡片編號</param>
         /// <param name="parameter">卡片參數</param>
         /// <returns></returns>
+        [CoreProfiling]
         [HttpPut]
         [Route("{id}")]
         [ProducesResponseType(typeof(ErrorInfoModel), StatusCodes.Status404NotFound)]
@@ -139,6 +145,7 @@ namespace PracticeWebAPIDemo.Controllers
         /// </summary>
         /// <param name="id">卡片編號</param>
         /// <returns></returns>
+        [CoreProfiling]
         [HttpDelete]
         [Route("{id}")]
         [ProducesResponseType(typeof(ErrorInfoModel), StatusCodes.Status404NotFound)]
