@@ -1,4 +1,5 @@
-﻿using FluentValidation.AspNetCore;
+﻿using CoreProfiler.Web;
+using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using PracticeWebAPIDemo.Infrastructure.Profiles;
 using PracticeWebAPIDemo.Repository.Helpers;
@@ -73,6 +74,7 @@ namespace PracticeWebAPIDemo
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCoreProfiler(true);
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
