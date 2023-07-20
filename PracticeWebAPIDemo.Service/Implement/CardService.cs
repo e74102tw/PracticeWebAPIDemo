@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CoreProfiler;
+using PracticeWebAPIDemo.Common.Infrastructure.Extensions;
 using PracticeWebAPIDemo.Repository.Entities.Condition;
 using PracticeWebAPIDemo.Repository.Entities.DataModel;
 using PracticeWebAPIDemo.Repository.Interface;
@@ -25,13 +27,16 @@ namespace PracticeWebAPIDemo.Service.Implement
 
         public async Task<IEnumerable<CardResultModel>> GetList(CardSearchInfo info)
         {
-            var condition = this._mapper.Map<CardSearchInfo, CardSearchCondition>(info);
-            var data = await this._cardRepository.GetList(condition);
+            using (ProfilingSession.Current.Step(this.GetStepName()))
+            {
+                var condition = this._mapper.Map<CardSearchInfo, CardSearchCondition>(info);
+                var data = await this._cardRepository.GetList(condition);
 
-            var result = this._mapper.Map<
-                IEnumerable<CardDataModel>,
-                IEnumerable<CardResultModel>>(data);
-            return result;
+                var result = this._mapper.Map<
+                    IEnumerable<CardDataModel>,
+                    IEnumerable<CardResultModel>>(data);
+                return result;
+            }
         }
 
         /// <summary>
@@ -41,9 +46,12 @@ namespace PracticeWebAPIDemo.Service.Implement
         /// <returns></returns>
         public async Task<CardResultModel> Get(int id)
         {
-            var card = await this._cardRepository.Get(id);
-            var result = this._mapper.Map<CardDataModel, CardResultModel>(card);
-            return result;
+            using (ProfilingSession.Current.Step(this.GetStepName()))
+            {
+                var card = await this._cardRepository.Get(id);
+                var result = this._mapper.Map<CardDataModel, CardResultModel>(card);
+                return result;
+            }
         }
 
         /// <summary>
@@ -53,9 +61,12 @@ namespace PracticeWebAPIDemo.Service.Implement
         /// <returns></returns>
         public async Task<bool> Insert(CardInfo info)
         {
-            var condition = this._mapper.Map<CardInfo, CardCondition>(info);
-            var result = await this._cardRepository.Insert(condition);
-            return result;
+            using (ProfilingSession.Current.Step(this.GetStepName()))
+            {
+                var condition = this._mapper.Map<CardInfo, CardCondition>(info);
+                var result = await this._cardRepository.Insert(condition);
+                return result;
+            }
         }
 
         /// <summary>
@@ -66,9 +77,12 @@ namespace PracticeWebAPIDemo.Service.Implement
         /// <returns></returns>
         public async Task<bool> Update(int id, CardInfo info)
         {
-            var condition = this._mapper.Map<CardInfo, CardCondition>(info);
-            var result = await this._cardRepository.Update(id, condition);
-            return result;
+            using (ProfilingSession.Current.Step(this.GetStepName()))
+            {
+                var condition = this._mapper.Map<CardInfo, CardCondition>(info);
+                var result = await this._cardRepository.Update(id, condition);
+                return result;
+            }
         }
 
         /// <summary>
@@ -78,8 +92,11 @@ namespace PracticeWebAPIDemo.Service.Implement
         /// <returns></returns>
         public async Task<bool> Delete(int id)
         {
-            var result = await this._cardRepository.Delete(id);
-            return result;
+            using (ProfilingSession.Current.Step(this.GetStepName()))
+            {
+                var result = await this._cardRepository.Delete(id);
+                return result;
+            }
         }
     }
 }

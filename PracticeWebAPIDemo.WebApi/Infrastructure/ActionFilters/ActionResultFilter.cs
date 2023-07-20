@@ -64,7 +64,7 @@ namespace PracticeWebAPIDemo.WebApi.Infrastructure.ActionFilters
                 {
                     Id = Guid.NewGuid(),
                     Method = $"{context.HttpContext.Request.Path}.{method}",
-                    Status = objectResult.StatusCode.ToString(),
+                    Status = "Success",
                     Data = objectResult.Value
                 };
                 actionExecutedContext.Result = new ObjectResult(value2)
@@ -79,7 +79,7 @@ namespace PracticeWebAPIDemo.WebApi.Infrastructure.ActionFilters
                 {
                     Id = Guid.NewGuid(),
                     Method = $"{context.HttpContext.Request.Path}.{method}",
-                    Status = objectResult.StatusCode.ToString(),
+                    Status = "Error",
                     Data = objectResult.Value
                 };
                 actionExecutedContext.Result = new ObjectResult(errorResultOutput)
