@@ -1,6 +1,12 @@
-using PracticeWebAPIDemo.Infrastructure.Extensions;
 using PracticeWebAPIDemo;
 
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build<Startup>();
-app.Run();
+CreateHostBuilder(args).Build().Run();
+
+static IHostBuilder CreateHostBuilder(string[] args)
+{
+    return Host.CreateDefaultBuilder(args)
+               .ConfigureWebHostDefaults(webBuilder =>
+               {
+                   webBuilder.UseStartup<Startup>();
+               });
+}

@@ -30,4 +30,8 @@
     <ProjectReference Include="..\PracticeWebAPIDemo.Service\PracticeWebAPIDemo.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Extensions\" />
+  </ItemGroup>
+
 </Project>
